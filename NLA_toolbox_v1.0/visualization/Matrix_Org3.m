@@ -135,24 +135,34 @@ end
 %% If data is lower-triangular, add white
 if (length(unique(triu(Min,1)))==1)
 % Add white patch with white edges
-vX=reshape(repmat([(1+0.5):(Mx+0.5),(Mx+0.5)],[2,1]),[],1);
-vX(end-1:end)=[];
-vY=reshape(repmat([(0+0.5):(My-0.5),(0+0.5)],[2,1]),[],1);
-vY(1)=[];vY(end)=[];
+% vX=reshape(repmat([(1+0.5):(Mx+0.5),(Mx+0.5)],[2,1]),[],1);
+% vX(end-1:end)=[];
+% vY=reshape(repmat([(0+0.5):(My-0.5),(0+0.5)],[2,1]),[],1);
+% vY(1)=[];vY(end)=[];
+vX = [repelem([0.5:1:(Mx+0.5)]',2,1)];
+vY = [0.5;repelem([1.5:1:(My+0.5)]',2,1);0.5];
 v=[vX,vY];
 f=[1:length(v),1];
 % patch('Faces',f,'Vertices',v,'FaceColor','k','EdgeColor','k');
 patch('Faces',f,'Vertices',v,'FaceColor','w','EdgeColor','w');
 
 % Fix black edges on perimeter
-vX=reshape(repmat([(1+0.5):(Mx+0.5)],[2,1]),[],1);
-vX(end)=[];
-vY=reshape(repmat([(0+0.5):(My-0.5)],[2,1]),[],1);
-vY(1)=[];
-v=[vX,vY;vX(end),(vY(end)+buffer+1);...
-    (vX(1)-buffer-1),(vY(end)+buffer+1);(vX(1)-buffer-1),(vY(1))];
+% % vX=reshape(repmat([(1+0.5):(Mx+0.5)],[2,1]),[],1); OG code
+% % vX(end)=[];
+% % vY=reshape(repmat([(0+0.5):(My-0.5)],[2,1]),[],1);
+% % vY(1)=[];
+% % v=[vX,vY;vX(end),(vY(end)+buffer+1);...
+% %     (vX(1)-buffer-1),(vY(end)+buffer+1);(vX(1)-buffer-1),(vY(1))];
+
+% staircase avoiding diagonal
+v = v(1:end-2,:);
+v = [v;0.5-buffer,My+0.5;0.5-buffer,0.5];
+
+% just plot triangle (there will be gaps)
+% v = [0.5-buffer,My+0.5;Mx+0.5,My+0.5;0.5-buffer,0.5-buffer];
+
 f=[1:length(v),1];
-patch('Faces',f,'Vertices',v,'FaceColor','none','EdgeColor','k');
+patch('Faces',f,'Vertices',v,'FaceColor','None','EdgeColor','k');
 set(gca,'Box','off','XTick',[],'YTick',[],'DataAspectRatio',[1,1,1],...
     'TickDir','out')
 else
