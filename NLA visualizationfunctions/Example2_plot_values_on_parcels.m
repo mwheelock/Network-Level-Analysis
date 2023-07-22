@@ -1,12 +1,12 @@
 % Example 2: plot metric for each parcel with specified colormap
-addpath('/data/wheelock/data1/people/Cindy/NLA_toolbox_070319/NLA_toolbox_v1.0/visualization');
+addpath(genpath(pwd));
 
-load(['/data/wheelock/data1/people/Cindy/BCP/ParcelPlots/Parcels_','Gordon','.mat'],'Parcels');
+load(['Parcels_','Gordon','.mat'],'Parcels');
 load('IM_Gordon_13nets_333Parcels.mat');
 load('ExampleSI.mat','SI');
 % Load mesh
 %     load('Conte69_on_TT_32k.mat')
-load('/data/wheelock/data1/people/Cindy/BCP/ParcelPlots/MNI_coord_meshes_32k.mat')
+load('MNI_coord_meshes_32k.mat')
 Anat.CtxL = MNIl;Anat.CtxR = MNIr;
 clear MNIl MNIr
 %% Plot values on brain

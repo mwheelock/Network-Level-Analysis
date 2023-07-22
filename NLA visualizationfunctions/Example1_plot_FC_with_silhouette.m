@@ -1,15 +1,15 @@
 % Example 1: plot Fc matrix with silhouette index
-addpath('/data/wheelock/data1/people/Cindy/NLA_toolbox_070319/NLA_toolbox_v1.0/visualization')
+addpath(genpath(pwd));
 
 % load data
-load('/data/wheelock/data1/datasets/WashU120/120_allsubs_corr_Gordon.mat');
+load('/data/wheelock/data1/datasets/WashU120/120_allsubs_corr_Gordon.mat','pconn'); % 333x333 average FC data
 zmatWashU120 = pconn;
 
 % load parcel and reorder data according to parcel
 load('IM_Gordon_13nets_333Parcels.mat');
 zmat_gordon_WashU120 = zmatWashU120(IM.order,IM.order);
 
-KardanIM = load('/data/wheelock/data1/parcellations/IM/Kardan_2022_DCN/IM_11_BCP94.mat');
+KardanIM = load('IM_11_BCP94.mat');
 KardanIM = KardanIM.IM;
 zmat_Kardan_WashU120 = zmatWashU120(KardanIM.order,KardanIM.order);
 

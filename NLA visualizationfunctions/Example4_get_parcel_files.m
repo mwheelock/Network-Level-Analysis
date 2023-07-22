@@ -1,11 +1,12 @@
 % Example 4: get parcel files for visualization
 % assumes that the cifti files is cortex only with 59412 vertices (fsLR32k)
-addpath('/data/wheelock/data1/people/Cindy/NLA_toolbox_070319/NLA_toolbox_v1.0/visualization')
+addpath(genpath(pwd));
+addpath(genpath('/data/wheelock/data1/software/cifti-matlab-master')); % downloaded from https://www.mathworks.com/matlabcentral/fileexchange/56783-washington-university-cifti-matlab
 
-outdir = '/data/wheelock/data1/people/Cindy/BCP/ParcelPlots'
+outdir = '/data/wheelock/data1/people/Cindy/BCP/ParcelPlots' % Change me % 
 
-parcelname = 'Parcellation1'%
-parcels_path = '/data/wheelock/data1/parcellations/DustinScheinostNeonateParcellation/baby_atlas_in_MNI_space_fs_LR32k_dilated10mm_cleanedpt1thresh_LR_minsize10.dlabel.nii';
+parcelname = 'Parcellation1'% Change me %
+parcels_path = '/data/wheelock/data1/parcellations/DustinScheinostNeonateParcellation/baby_atlas_in_MNI_space_fs_LR32k_dilated10mm_cleanedpt1thresh_LR_minsize10.dlabel.nii'; % Change me % 
 
 parceldata = cifti_read(parcels_path);
 Linds=with_without_mw_conversion('Lindfull');
@@ -22,7 +23,7 @@ Parcels.CtxR(Rinds-n_verts_per_hem) = parceldata.cdata(length(Linds)+1:end);
 % save(matpath,'Parcels');
 
 %% View all parcels on MNI
-load('/data/wheelock/data1/people/Cindy/BCP/ParcelPlots/MNI_coord_meshes_32k.mat')
+load('MNI_coord_meshes_32k.mat')
 Anat.CtxL = MNIl;Anat.CtxR = MNIr;
 clear MNIl MNIr
 
@@ -56,11 +57,11 @@ return
 
 
 %% (optional) obtain distance matrices
-neighbors_path = '/data/cn/data1/scripts/CIFTI_RELATED/Resources/Conte69_atlas-v2.LR.32k_fs_LR.wb/Cifti_surf_neighbors_LR_normalwall.mat';
+neighbors_path = '/data/cn/data1/scripts/CIFTI_RELATED/Resources/Conte69_atlas-v2.LR.32k_fs_LR.wb/Cifti_surf_neighbors_LR_normalwall.mat'; %Change me%
 load(neighbors_path,'neighbors');
 
 dist_path = {'/data/wheelock/data1/parcellations/SurfaceFiles/distmat_surf_geodesic_L_uint8.mat',...
-    '/data/wheelock/data1/parcellations/SurfaceFiles/distmat_surf_geodesic_R_uint8.mat'};
+    '/data/wheelock/data1/parcellations/SurfaceFiles/distmat_surf_geodesic_R_uint8.mat'};%Change me%
 
 dist(1) = load(dist_path{1});
 dist(2) = load(dist_path{2});

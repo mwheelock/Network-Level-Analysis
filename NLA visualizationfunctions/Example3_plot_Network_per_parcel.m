@@ -1,13 +1,13 @@
 % Example 3: plot network colors for parcels
-addpath('/data/wheelock/data1/people/Cindy/NLA_toolbox_070319/NLA_toolbox_v1.0/visualization');
+addpath(genpath(pwd));
 
 % load parcel file CtxL and CtxR with Left Hemisphere and Right Hemisphere
 % ROI assignments
 parcel_name = 'Gordon'
-load(['/data/wheelock/data1/people/Cindy/BCP/ParcelPlots/Parcels_',parcel_name,'.mat'],'Parcels');
+load(['Parcels_',parcel_name,'.mat'],'Parcels');
 
 % load corresponding IM file
-load('/data/wheelock/data1/parcellations/IM/Kardan_2022_DCN/IM_11_BCP94.mat','IM');
+load('IM_11_BCP94.mat','IM');
 
 Parcel_Nets.CtxL = Parcels.CtxL;Parcel_Nets.CtxR = Parcels.CtxR;
 [~,sortid] = sort(IM.order);key = IM.key(sortid,2);
@@ -17,7 +17,7 @@ for ii = 1:size(IM.key,1)
     Parcel_Nets.CtxR(Parcels.CtxR==ii)= key(ii);
 end
 %% Plot on inflated surface
-load('/data/wheelock/data1/people/Cindy/BCP/ParcelPlots/MNI_coord_meshes_32k.mat');
+load('MNI_coord_meshes_32k.mat');
 Anat.CtxL = MNIl;Anat.CtxR = MNIr;
 clear MNIl MNIr
 Anat.CtxL.data=Parcel_Nets.CtxL; 
